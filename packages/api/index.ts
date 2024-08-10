@@ -51,3 +51,13 @@ app.get('/cities', async (req, res) => {
     console.log('Error fetching cities:', error);
   }
 })
+
+app.get('/countries', async (req, res) => {
+  try {
+    const collection = db.collection('countries');
+    res.send(await collection.find().toArray())
+  } catch(error) {
+    // TODO
+    console.log('Error fetching countries:', error);
+  }
+})
