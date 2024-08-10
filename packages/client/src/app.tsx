@@ -1,13 +1,6 @@
 import { useState, type ChangeEvent } from 'react';
 import { getCodeSandboxHost } from "@codesandbox/utils";
-
-type Hotel = {
-  _id: string,
-  chain_name: string;
-  hotel_name: string;
-  city: string,
-  country: string
-};
+import Hotel from "./types/Hotel.type.ts";
 
 const codeSandboxHost = getCodeSandboxHost(3001);
 const API_URL = codeSandboxHost ? `https://${codeSandboxHost}` : 'http://localhost:3001';
