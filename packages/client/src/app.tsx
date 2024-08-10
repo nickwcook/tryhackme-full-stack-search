@@ -1,6 +1,8 @@
 import { useState, type ChangeEvent } from 'react';
 import { fetchAndFilterHotels } from "./utils/search.utils";
 import Hotel from "./types/Hotel.type";
+import City from "./types/City.type";
+import Country from "./types/Country.type";
 
 // TODO: Add:
 //   loading and error states/messages,
@@ -9,6 +11,8 @@ import Hotel from "./types/Hotel.type";
 
 function App() {
   const [hotels, setHotels] = useState<Hotel[]>([]);
+  const [cities, setCities] = useState<City[]>([]);
+  const [countries, setCountries] = useState<Country[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [showClearBtn, setShowClearBtn] = useState<boolean>(false);
 
@@ -20,6 +24,8 @@ function App() {
   const fetchData = async () => {
     if (searchTerm === '') {
       setHotels([]);
+      setCities([]);
+      setCountries([]);
       setShowClearBtn(false);
       return;
     }
