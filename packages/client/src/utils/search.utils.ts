@@ -1,6 +1,7 @@
 import { getCodeSandboxHost } from "@codesandbox/utils";
 import Hotel from "../types/Hotel.type";
 import City from "../types/City.type";
+import Country from "../types/Country.type.ts";
 
 const codeSandboxHost = getCodeSandboxHost(3001);
 const API_URL = codeSandboxHost ? `https://${codeSandboxHost}` : 'http://localhost:3001';
@@ -32,6 +33,21 @@ export const fetchAndFilterCities = async (value: string) => {
 		);
 	} catch (error) {
 		console.log('Error fetching cities:', error);
+		return [];
+	}
+}
+
+export const fetchAndFilterCountries = async (value: string) => {
+	try {
+		const countriesData = await fetch(`${API_URL}/countries`);
+		const countries = (await countriesData.json() as Country[]);
+		return countries.filter(
+			({ country: countryName, countryisocode }) =>
+				countryName.toLowerCase().includes(value.toLowerCase()) ||
+				countryisocode.toLowerCase().includes(value.toLowerCase())
+		);
+	} catch (error) {
+		console.log('Error fetching countries:', error);
 		return [];
 	}
 }
