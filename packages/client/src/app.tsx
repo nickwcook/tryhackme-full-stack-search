@@ -1,38 +1,65 @@
 import { useState, type ChangeEvent } from 'react';
 import { getCodeSandboxHost } from "@codesandbox/utils";
 
-type Hotel = { _id: string, chain_name: string; hotel_name: string; city: string, country: string };
+type Hotel = {
+  _id: string,
+  chain_name: string;
+  hotel_name: string;
+  city: string,
+  country: string
+};
 
-const codeSandboxHost = getCodeSandboxHost(3001)
-const API_URL = codeSandboxHost ? `https://${codeSandboxHost}` : 'http://localhost:3001'
+const codeSandboxHost = getCodeSandboxHost(3001);
+const API_URL = codeSandboxHost ? `https://${codeSandboxHost}` : 'http://localhost:3001';
+
+// TODO: Add:
+//   loading and error states/messages,
+//   AbortController,
+//   Min char length + input placeholder
 
 const fetchAndFilterHotels = async (value: string) => {
-  const hotelsData = await fetch(`${API_URL}/hotels`);
-  const hotels = (await hotelsData.json()) as Hotel[];
-  return hotels.filter(
-    ({ chain_name, hotel_name, city, country }) =>
-      chain_name.toLowerCase().includes(value.toLowerCase()) ||
-      hotel_name.toLowerCase().includes(value.toLowerCase()) ||
-      city.toLowerCase().includes(value.toLowerCase()) ||
-      country.toLowerCase().includes(value.toLowerCase())
-  );
+  try {
+    const hotelsData = await fetch(`${API_URL}/hotels`);
+    const hotels = (await hotelsData.json()) as Hotel[];
+    return hotels.filter(
+      ({ chain_name, hotel_name, city, country }) =>
+        chain_name.toLowerCase().includes(value.toLowerCase()) ||
+        hotel_name.toLowerCase().includes(value.toLowerCase()) ||
+        city.toLowerCase().includes(value.toLowerCase()) ||
+        country.toLowerCase().includes(value.toLowerCase())
+    );
+  } catch (error) {
+    console.log('Error fetching hotels:', error);
+    return [];
+  }
 }
 
 function App() {
   const [hotels, setHotels] = useState<Hotel[]>([]);
-  const [showClearBtn, setShowClearBtn] = useState(false);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [showClearBtn, setShowClearBtn] = useState<boolean>(false);
 
-  const fetchData = async (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value === '') {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+    fetchData(); // TODO: Add debounce
+  }
+
+  const fetchData = async () => {
+    if (searchTerm === '') {
       setHotels([]);
       setShowClearBtn(false);
       return;
     }
 
-    const filteredHotels = await fetchAndFilterHotels(event.target.value)
+    const filteredHotels = await fetchAndFilterHotels(searchTerm);
     setShowClearBtn(true);
     setHotels(filteredHotels);
   };
+
+  const handleClearInput = () => {
+    setSearchTerm('');
+    setHotels([]);
+  }
 
   return (
     <div className="App">
@@ -46,11 +73,12 @@ function App() {
                   type="text"
                   className="form-control form-input"
                   placeholder="Search accommodation..."
-                  onChange={fetchData}
+                  value={searchTerm}
+                  onChange={handleInputChange}
                 />
                 {showClearBtn && (
                   <span className="left-pan">
-                    <i className="fa fa-close"></i>
+                    <i className="fa fa-close" onClick={handleClearInput}></i>
                   </span>
                 )}
               </div>
