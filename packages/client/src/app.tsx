@@ -10,6 +10,7 @@ import Country from "./types/Country.type";
 //   Min char length + input placeholder
 
 function App() {
+  // TODO: Combine state values
   const [hotels, setHotels] = useState<Hotel[]>([]);
   const [cities, setCities] = useState<City[]>([]);
   const [countries, setCountries] = useState<Country[]>([]);
