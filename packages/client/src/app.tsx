@@ -1,6 +1,6 @@
 import { useState, type ChangeEvent } from 'react';
-import { fetchAndFilterHotels } from "./utils/search.utils.ts";
-import Hotel from "./types/Hotel.type.ts";
+import { fetchAndFilterHotels } from "./utils/search.utils";
+import Hotel from "./types/Hotel.type";
 
 // TODO: Add:
 //   loading and error states/messages,
