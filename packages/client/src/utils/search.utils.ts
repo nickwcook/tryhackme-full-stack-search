@@ -1,5 +1,5 @@
 import { getCodeSandboxHost } from "@codesandbox/utils";
-import Hotel from "../types/Hotel.type.ts";
+import Hotel from "../types/Hotel.type";
 
 const codeSandboxHost = getCodeSandboxHost(3001);
 const API_URL = codeSandboxHost ? `https://${codeSandboxHost}` : 'http://localhost:3001';
