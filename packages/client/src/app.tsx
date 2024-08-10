@@ -10,12 +10,12 @@ import Country from "./types/Country.type";
 //   Min char length + input placeholder
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [showClearBtn, setShowClearBtn] = useState<boolean>(false);
   // TODO: Combine state values
   const [hotels, setHotels] = useState<Hotel[]>([]);
   const [cities, setCities] = useState<City[]>([]);
   const [countries, setCountries] = useState<Country[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [showClearBtn, setShowClearBtn] = useState<boolean>(false);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
@@ -24,9 +24,7 @@ function App() {
 
   const fetchData = async () => {
     if (searchTerm === '') {
-      setHotels([]);
-      setCities([]);
-      setCountries([]);
+      resetSearchResults();
       setShowClearBtn(false);
       return;
     }
@@ -36,9 +34,15 @@ function App() {
     setHotels(filteredHotels);
   };
 
+  const resetSearchResults = () => {
+    setHotels([]);
+    setCities([]);
+    setCountries([]);
+  }
+
   const handleClearInput = () => {
     setSearchTerm('');
-    setHotels([]);
+    resetSearchResults();
   }
 
   const renderHotelsList = () => (
