@@ -52,6 +52,7 @@ function App() {
   const handleClearInput = () => {
     setSearchTerm('');
     resetSearchResults();
+    setShowClearBtn(false);
   }
 
   const renderSearchResults = () => (
