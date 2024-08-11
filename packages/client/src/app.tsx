@@ -59,8 +59,7 @@ function App() {
       <div className="search-dropdown-menu dropdown-menu w-100 show p-2">
         {renderHotelResults()}
         {renderCountryResults()}
-        <h2>Cities</h2>
-        <p>No cities matched</p>
+        {renderCityResults()}
       </div>
     )
   );
@@ -87,7 +86,7 @@ function App() {
         const { country: countryName } = country; // Note observation re. field 'country'
         return (
           <li key={index}>
-            <a href={`/hotels/${country._id}`} className="dropdown-item">
+            <a href={`/countries/${country._id}`} className="dropdown-item">
               <i className="fa fa-building mr-2"></i>
               {countryName}
             </a>
@@ -95,6 +94,24 @@ function App() {
           </li>
         )
       }) : <p>No countries matched</p>}
+    </>
+  );
+
+  const renderCityResults = () => (
+    <>
+      <h2>Cities</h2>
+      {cities.length ? cities.map((city, index) => {
+        const { name: cityName } = city; // Note observation re. field 'country'
+        return (
+          <li key={index}>
+            <a href={`/cities/${city._id}`} className="dropdown-item">
+              <i className="fa fa-building mr-2"></i>
+              {cityName}
+            </a>
+            <hr className="divider"/>
+          </li>
+        )
+      }) : <p>No cities matched</p>}
     </>
   );
 
