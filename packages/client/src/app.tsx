@@ -2,7 +2,6 @@ import { type ChangeEvent } from 'react';
 import { useAccommodationSearch } from "./hooks/search.hooks";
 
 // TODO: Add:
-//   loading and error states/messages,
 //   AbortController,
 //   Min char length + input placeholder
 

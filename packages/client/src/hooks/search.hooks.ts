@@ -15,6 +15,7 @@ export const useAccommodationSearch = () => {
 	const [hotels, setHotels] = useState<Hotel[]>([]);
 	const [countries, setCountries] = useState<Country[]>([]);
 	const [cities, setCities] = useState<City[]>([]);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [errorMessage, setErrorMessage] = useState<string>('');
 
 	const resetSearchResults = () => {
@@ -24,6 +25,8 @@ export const useAccommodationSearch = () => {
 	}
 
 	const fetchData = useCallback(async () => {
+		setIsLoading(true);
+
 		try {
 			const filteredHotels = await fetchAndFilterHotels(searchTerm);
 			const filteredCountries = await fetchAndFilterCountries(searchTerm);
@@ -38,6 +41,8 @@ export const useAccommodationSearch = () => {
 			} else {
 				setErrorMessage(JSON.stringify(error));
 			}
+		} finally {
+			setIsLoading(false);
 		}
 	}, [searchTerm]);
 
@@ -61,6 +66,7 @@ export const useAccommodationSearch = () => {
 		hotels,
 		countries,
 		cities,
+		isLoading,
 		errorMessage
 	}
 };
