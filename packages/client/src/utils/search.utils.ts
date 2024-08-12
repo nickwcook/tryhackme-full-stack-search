@@ -1,4 +1,5 @@
 import { getCodeSandboxHost } from "@codesandbox/utils";
+import Axios from "axios";
 import Hotel from "../types/Hotel.type";
 import City from "../types/City.type";
 import Country from "../types/Country.type.ts";
@@ -8,8 +9,7 @@ const API_URL = codeSandboxHost ? `https://${codeSandboxHost}` : 'http://localho
 
 export const fetchAndFilterHotels = async (value: string) => {
 	try {
-		const hotelsData = await fetch(`${API_URL}/hotels`);
-		const hotels = (await hotelsData.json()) as Hotel[];
+		const { data: hotels }: { data: Hotel[] } = await Axios.get(`${API_URL}/hotels`);
 		return hotels.filter(
 			({ chain_name, hotel_name, city, country }) =>
 				chain_name.toLowerCase().includes(value.toLowerCase()) ||
@@ -25,8 +25,7 @@ export const fetchAndFilterHotels = async (value: string) => {
 
 export const fetchAndFilterCities = async (value: string) => {
 	try {
-		const citiesData = await fetch(`${API_URL}/cities`);
-		const cities = (await citiesData.json() as City[]);
+		const { data: cities }: { data: City[] } = await Axios.get(`${API_URL}/cities`);
 		return cities.filter(
 			({ name }) =>
 				name.toLowerCase().includes(value.toLowerCase())
@@ -39,8 +38,7 @@ export const fetchAndFilterCities = async (value: string) => {
 
 export const fetchAndFilterCountries = async (value: string) => {
 	try {
-		const countriesData = await fetch(`${API_URL}/countries`);
-		const countries = (await countriesData.json() as Country[]);
+		const { data: countries }: { data: Country[] } = await Axios.get(`${API_URL}/countries`);
 		return countries.filter(
 			({ country: countryName, countryisocode }) =>
 				countryName.toLowerCase().includes(value.toLowerCase()) ||
