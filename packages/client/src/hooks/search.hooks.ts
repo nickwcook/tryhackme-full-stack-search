@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useMemo, useEffect, useState } from "react";
 import { isAxiosError } from "axios";
+import debounce from "lodash.debounce";
 import { City, Country, Hotel } from "../types";
 import {
 	fetchAndFilterCities,
@@ -44,6 +45,8 @@ export const useAccommodationSearch = () => {
 		}
 	}, [searchTerm]);
 
+	const debouncedFetch = useMemo(() => debounce(fetchData, 500), [fetchData]);
+
 	useEffect(() => {
 		setErrorMessage('');
 		if (!searchTerm.length) {
@@ -51,9 +54,10 @@ export const useAccommodationSearch = () => {
 			resetSearchResults();
 		} else {
 			setShowClearBtn(true);
-			fetchData();
+			debouncedFetch();
+			return () => debouncedFetch.cancel();
 		}
-	}, [fetchData, searchTerm]);
+	}, [debouncedFetch, fetchData, searchTerm]);
 
 	return {
 		searchTerm,
