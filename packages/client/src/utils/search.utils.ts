@@ -2,7 +2,7 @@ import { getCodeSandboxHost } from "@codesandbox/utils";
 import Axios from "axios";
 import Hotel from "../types/Hotel.type";
 import City from "../types/City.type";
-import Country from "../types/Country.type.ts";
+import Country from "../types/Country.type";
 
 const codeSandboxHost = getCodeSandboxHost(3001);
 const API_URL = codeSandboxHost ? `https://${codeSandboxHost}` : 'http://localhost:3001';
@@ -18,8 +18,8 @@ export const fetchAndFilterHotels = async (value: string) => {
 				country.toLowerCase().includes(value.toLowerCase())
 		);
 	} catch (error) {
-		console.log('Error fetching hotels:', error);
-		return [];
+		console.log("Error fetching hotels data:", error);
+		throw error;
 	}
 }
 
@@ -31,8 +31,8 @@ export const fetchAndFilterCities = async (value: string) => {
 				name.toLowerCase().includes(value.toLowerCase())
 		);
 	} catch (error) {
-		console.log('Error fetching cities:', error);
-		return [];
+		console.log("Error fetching cities data:", error);
+		throw error;
 	}
 }
 
@@ -45,7 +45,7 @@ export const fetchAndFilterCountries = async (value: string) => {
 				countryisocode.toLowerCase().includes(value.toLowerCase())
 		);
 	} catch (error) {
-		console.log('Error fetching countries:', error);
-		return [];
+		console.log("Error fetching countries data:", error);
+		throw error;
 	}
 }

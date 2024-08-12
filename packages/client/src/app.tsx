@@ -14,7 +14,8 @@ function App() {
     resetSearchResults,
     hotels,
     countries,
-    cities
+    cities,
+    errorMessage
   } = useAccommodationSearch();
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -25,6 +26,8 @@ function App() {
     setSearchTerm('');
     resetSearchResults();
   }
+
+  const renderErrorMessage = () => <p className="mt-3">Error retrieving search results: {errorMessage}</p>
 
   const renderSearchResults = () => (
     !!(hotels.length || cities.length || countries.length) && (
@@ -108,7 +111,7 @@ function App() {
                   </span>
                 )}
               </div>
-              {renderSearchResults()}
+              {errorMessage ? renderErrorMessage() : renderSearchResults()}
             </div>
           </div>
         </div>

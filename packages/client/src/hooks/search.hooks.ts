@@ -1,8 +1,13 @@
-import {useCallback, useEffect, useState} from "react";
-import Hotel from "../types/Hotel.type.ts";
-import Country from "../types/Country.type.ts";
-import City from "../types/City.type.ts";
-import {fetchAndFilterCities, fetchAndFilterCountries, fetchAndFilterHotels} from "../utils/search.utils.ts";
+import { useCallback, useEffect, useState } from "react";
+import { isAxiosError } from "axios";
+import Hotel from "../types/Hotel.type";
+import Country from "../types/Country.type";
+import City from "../types/City.type";
+import {
+	fetchAndFilterCities,
+	fetchAndFilterCountries,
+	fetchAndFilterHotels
+} from "../utils/search.utils";
 
 export const useAccommodationSearch = () => {
 	const [searchTerm, setSearchTerm] = useState<string>('');
@@ -10,6 +15,7 @@ export const useAccommodationSearch = () => {
 	const [hotels, setHotels] = useState<Hotel[]>([]);
 	const [countries, setCountries] = useState<Country[]>([]);
 	const [cities, setCities] = useState<City[]>([]);
+	const [errorMessage, setErrorMessage] = useState<string>('');
 
 	const resetSearchResults = () => {
 		setHotels([]);
@@ -18,16 +24,26 @@ export const useAccommodationSearch = () => {
 	}
 
 	const fetchData = useCallback(async () => {
-		// TODO: Add error-handling/try-catch
-		const filteredHotels = await fetchAndFilterHotels(searchTerm);
-		const filteredCountries = await fetchAndFilterCountries(searchTerm);
-		const filteredCities = await fetchAndFilterCities(searchTerm);
-		setHotels(filteredHotels);
-		setCountries(filteredCountries);
-		setCities(filteredCities);
+		try {
+			const filteredHotels = await fetchAndFilterHotels(searchTerm);
+			const filteredCountries = await fetchAndFilterCountries(searchTerm);
+			const filteredCities = await fetchAndFilterCities(searchTerm);
+			setHotels(filteredHotels);
+			setCountries(filteredCountries);
+			setCities(filteredCities);
+		} catch (error) {
+			// TODO: Add error handler class
+			if (isAxiosError(error)) {
+				setErrorMessage(error.message);
+			} else {
+				setErrorMessage(JSON.stringify(error));
+			}
+		}
 	}, [searchTerm]);
 
 	useEffect(() => {
+		setErrorMessage('');
+
 		if (!searchTerm.length) {
 			setShowClearBtn(false);
 			resetSearchResults();
@@ -45,5 +61,6 @@ export const useAccommodationSearch = () => {
 		hotels,
 		countries,
 		cities,
+		errorMessage
 	}
 };
