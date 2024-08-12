@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from 'react';
+import {useState, type ChangeEvent, useEffect, useCallback} from 'react';
 import {
   fetchAndFilterCities,
   fetchAndFilterCountries,
@@ -22,26 +22,30 @@ function App() {
   const [cities, setCities] = useState<City[]>([]);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-    fetchData(); // TODO: Add debounce
+    const { value } = event.target;
+    setSearchTerm(value);
   }
 
-  const fetchData = async () => {
-    if (searchTerm === '') {
-      resetSearchResults();
-      setShowClearBtn(false);
-      return;
-    }
-
-    // TODO: Combine logic into single function?
+  const fetchData = useCallback(async () => {
+    // TODO: Combine logic into single function/*custom hook*?
+    // TODO: Add error-handling/try-catch
     const filteredHotels = await fetchAndFilterHotels(searchTerm);
     const filteredCountries = await fetchAndFilterCountries(searchTerm);
     const filteredCities = await fetchAndFilterCities(searchTerm);
-    setShowClearBtn(true);
     setHotels(filteredHotels);
     setCountries(filteredCountries);
     setCities(filteredCities);
-  };
+  }, [searchTerm]);
+
+  useEffect(() => {
+    if (!searchTerm.length) {
+      setShowClearBtn(false);
+      resetSearchResults();
+    } else {
+      setShowClearBtn(true);
+      fetchData();
+    }
+  }, [fetchData, searchTerm]);
 
   const resetSearchResults = () => {
     setHotels([]);
