@@ -23,18 +23,19 @@ export const useAccommodationSearch = () => {
 		setCities([]);
 	}
 
-	const fetchData = useCallback(async () => {
+	const fetchData = useCallback(async (abortController: AbortController) => {
 		setIsLoading(true);
 
 		try {
-			const filteredHotels = await fetchAndFilterHotels(searchTerm);
-			const filteredCountries = await fetchAndFilterCountries(searchTerm);
-			const filteredCities = await fetchAndFilterCities(searchTerm);
-			setHotels(filteredHotels);
-			setCountries(filteredCountries);
-			setCities(filteredCities);
+			const [hotels, countries, cities] = await Promise.all([
+				fetchAndFilterHotels(searchTerm, abortController),
+				fetchAndFilterCountries(searchTerm, abortController),
+				fetchAndFilterCities(searchTerm, abortController)
+			])
+			setHotels(hotels);
+			setCountries(countries);
+			setCities(cities);
 		} catch (error) {
-			// TODO: Add error handler class
 			if (isAxiosError(error)) {
 				setErrorMessage(error.message);
 			} else {
@@ -45,17 +46,25 @@ export const useAccommodationSearch = () => {
 		}
 	}, [searchTerm]);
 
-	const debouncedFetch = useMemo(() => debounce(fetchData, 500), [fetchData]);
+	const debouncedFetch = useMemo(() =>
+		debounce((abortController) => fetchData(abortController), 500), [fetchData]);
 
 	useEffect(() => {
+		let abortController: AbortController;
 		setErrorMessage('');
+
 		if (!searchTerm.length) {
 			setShowClearBtn(false);
 			resetSearchResults();
 		} else {
+			abortController = new AbortController();
 			setShowClearBtn(true);
-			debouncedFetch();
-			return () => debouncedFetch.cancel();
+			debouncedFetch(abortController);
+		}
+
+		return () => {
+			debouncedFetch.cancel();
+			abortController?.abort();
 		}
 	}, [debouncedFetch, fetchData, searchTerm]);
 
