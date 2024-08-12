@@ -1,8 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { isAxiosError } from "axios";
-import Hotel from "../types/Hotel.type";
-import Country from "../types/Country.type";
-import City from "../types/City.type";
+import { City, Country, Hotel } from "../types";
 import {
 	fetchAndFilterCities,
 	fetchAndFilterCountries,
@@ -48,7 +46,6 @@ export const useAccommodationSearch = () => {
 
 	useEffect(() => {
 		setErrorMessage('');
-
 		if (!searchTerm.length) {
 			setShowClearBtn(false);
 			resetSearchResults();
