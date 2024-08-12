@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from 'cors';
-import { MongoClient, Db } from "mongodb";
+import { MongoClient, Db, ObjectId } from "mongodb";
 
 dotenv.config();
 
@@ -37,8 +37,17 @@ app.get('/hotels', async (req, res) => {
     const collection = db.collection('hotels');
     res.send(await collection.find().toArray())
   } catch(error) {
-    // TODO
     console.log('Error fetching hotels:', error);
+  }
+})
+
+app.get('/hotels/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const collection = db.collection('hotels');
+    res.send(await collection.findOne({ "_id": new ObjectId(id) }))
+  } catch(error) {
+    console.log(`Error fetching hotel with ID ${id}:`, error);
   }
 })
 
@@ -47,7 +56,6 @@ app.get('/cities', async (req, res) => {
     const collection = db.collection('cities');
     res.send(await collection.find().toArray())
   } catch(error) {
-    // TODO
     console.log('Error fetching cities:', error);
   }
 })
@@ -57,7 +65,6 @@ app.get('/countries', async (req, res) => {
     const collection = db.collection('countries');
     res.send(await collection.find().toArray())
   } catch(error) {
-    // TODO
     console.log('Error fetching countries:', error);
   }
 })
