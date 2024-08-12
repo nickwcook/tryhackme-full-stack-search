@@ -12,16 +12,29 @@ function App() {
     cities,
     errorMessage
   } = useAccommodationSearch();
+
+  const renderInput = () => (
+    <>
+      <i className="fa fa-search"></i>
+      <input
+        type="text"
+        className="form-control form-input"
+        placeholder="Search accommodation..."
+        value={searchTerm}
+        onChange={handleInputChange}
+      />
+      {showClearBtn && (
+        <span className="left-pan">
+          <i className="fa fa-close" onClick={handleClearInput}></i>
+        </span>
+      )}
+    </>
+  )
+
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
+    const {value} = event.target;
     setSearchTerm(value);
   }
-
-  const renderClearButton = () => (
-    <span className="left-pan">
-      <i className="fa fa-close" onClick={handleClearInput}></i>
-    </span>
-  )
 
   const handleClearInput = () => {
     setSearchTerm('');
@@ -98,15 +111,7 @@ function App() {
           <div className="col-md-6">
             <div className="dropdown">
               <div className="form">
-                <i className="fa fa-search"></i>
-                <input
-                  type="text"
-                  className="form-control form-input"
-                  placeholder="Search accommodation..."
-                  value={searchTerm}
-                  onChange={handleInputChange}
-                />
-                {showClearBtn && renderClearButton()}
+                {renderInput()}
               </div>
               {errorMessage ? renderErrorMessage() : renderSearchResults()}
             </div>
