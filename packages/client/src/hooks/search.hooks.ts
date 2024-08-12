@@ -6,7 +6,7 @@ import {fetchAndFilterCities, fetchAndFilterCountries, fetchAndFilterHotels} fro
 
 export const useAccommodationSearch = () => {
 	const [searchTerm, setSearchTerm] = useState<string>('');
-	const [showClearBtn, setShowClearBtn] = useState<boolean>(false);
+	const [showClearBtn, setShowClearBtn] = useState<boolean>(false); // Should hook be unaware of component UI?
 	const [hotels, setHotels] = useState<Hotel[]>([]);
 	const [countries, setCountries] = useState<Country[]>([]);
 	const [cities, setCities] = useState<City[]>([]);
