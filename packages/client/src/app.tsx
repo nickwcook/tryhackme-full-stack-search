@@ -13,6 +13,16 @@ function App() {
     errorMessage
   } = useAccommodationSearch();
 
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const {value} = event.target;
+    setSearchTerm(value);
+  }
+
+  const handleClearInput = () => {
+    setSearchTerm('');
+    resetSearchResults();
+  }
+
   const renderInput = () => (
     <>
       <i className="fa fa-search"></i>
@@ -29,19 +39,7 @@ function App() {
         </span>
       )}
     </>
-  )
-
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const {value} = event.target;
-    setSearchTerm(value);
-  }
-
-  const handleClearInput = () => {
-    setSearchTerm('');
-    resetSearchResults();
-  }
-
-  const renderErrorMessage = () => <p className="mt-3">Error retrieving search results: {errorMessage}</p>
+  );
 
   const renderSearchResults = () => (
     !!(hotels.length || cities.length || countries.length) && (
@@ -102,6 +100,10 @@ function App() {
         )
       }) : <p>No cities matched</p>}
     </>
+  );
+
+  const renderErrorMessage = () => (
+    <p className="mt-3">Error retrieving search results: {errorMessage}</p>
   );
 
   return (
