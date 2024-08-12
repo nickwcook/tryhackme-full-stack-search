@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from 'cors';
 import { MongoClient, Db, ObjectId } from "mongodb";
 
+// region config
 dotenv.config();
 
 if (process.env.NODE_ENV !== 'production' && !process.env.DATABASE_URL) {
@@ -31,7 +32,9 @@ MongoClient.connect(DATABASE_URL)
   .catch(error => {
     console.error('Error connecting to MongoDB:', error);
   })
+// endregion config
 
+// region hotels
 app.get('/hotels', async (req, res) => {
   try {
     const collection = db.collection('hotels');
@@ -50,7 +53,9 @@ app.get('/hotels/:id', async (req, res) => {
     console.log(`Error fetching hotel with ID ${id}:`, error);
   }
 })
+// endregion hotels
 
+// region cities
 app.get('/cities', async (req, res) => {
   try {
     const collection = db.collection('cities');
@@ -60,6 +65,18 @@ app.get('/cities', async (req, res) => {
   }
 })
 
+app.get('/cities/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const collection = db.collection('cities');
+    res.send(await collection.findOne({ "_id": new ObjectId(id) }))
+  } catch(error) {
+    console.log(`Error fetching city with ID ${id}:`, error);
+  }
+})
+// endregion cities
+
+// region countries
 app.get('/countries', async (req, res) => {
   try {
     const collection = db.collection('countries');
@@ -68,3 +85,14 @@ app.get('/countries', async (req, res) => {
     console.log('Error fetching countries:', error);
   }
 })
+
+app.get('/countries/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const collection = db.collection('countries');
+    res.send(await collection.findOne({ "_id": new ObjectId(id) }))
+  } catch(error) {
+    console.log(`Error fetching country with ID ${id}:`, error);
+  }
+})
+// endregion countries
