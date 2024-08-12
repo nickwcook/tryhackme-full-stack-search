@@ -14,7 +14,8 @@ const router = createBrowserRouter([
 	},
 	{
 		path: "/hotels/:id",
-		element: <HotelPage />
+		element: <HotelPage />,
+		// loader: async ({ params }) => fetchHotelById(params.id || "") Sample: Please see submission notes
 	},
 	{
 		path: "/countries/:id",
