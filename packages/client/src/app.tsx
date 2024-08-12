@@ -1,12 +1,5 @@
-import {useState, type ChangeEvent, useEffect, useCallback} from 'react';
-import {
-  fetchAndFilterCities,
-  fetchAndFilterCountries,
-  fetchAndFilterHotels
-} from "./utils/search.utils";
-import Hotel from "./types/Hotel.type";
-import City from "./types/City.type";
-import Country from "./types/Country.type";
+import { type ChangeEvent } from 'react';
+import { useAccommodationSearch } from "./hooks/search.hooks";
 
 // TODO: Add:
 //   loading and error states/messages,
@@ -14,49 +7,23 @@ import Country from "./types/Country.type";
 //   Min char length + input placeholder
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [showClearBtn, setShowClearBtn] = useState<boolean>(false);
-  // TODO: Combine state values into 'searchResults'
-  const [hotels, setHotels] = useState<Hotel[]>([]);
-  const [countries, setCountries] = useState<Country[]>([]);
-  const [cities, setCities] = useState<City[]>([]);
-
+  const {
+    searchTerm,
+    setSearchTerm,
+    showClearBtn,
+    resetSearchResults,
+    hotels,
+    countries,
+    cities
+  } = useAccommodationSearch();
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setSearchTerm(value);
   }
 
-  const fetchData = useCallback(async () => {
-    // TODO: Combine logic into single function/*custom hook*?
-    // TODO: Add error-handling/try-catch
-    const filteredHotels = await fetchAndFilterHotels(searchTerm);
-    const filteredCountries = await fetchAndFilterCountries(searchTerm);
-    const filteredCities = await fetchAndFilterCities(searchTerm);
-    setHotels(filteredHotels);
-    setCountries(filteredCountries);
-    setCities(filteredCities);
-  }, [searchTerm]);
-
-  useEffect(() => {
-    if (!searchTerm.length) {
-      setShowClearBtn(false);
-      resetSearchResults();
-    } else {
-      setShowClearBtn(true);
-      fetchData();
-    }
-  }, [fetchData, searchTerm]);
-
-  const resetSearchResults = () => {
-    setHotels([]);
-    setCities([]);
-    setCountries([]);
-  }
-
   const handleClearInput = () => {
     setSearchTerm('');
     resetSearchResults();
-    setShowClearBtn(false);
   }
 
   const renderSearchResults = () => (
