@@ -5,7 +5,8 @@ import { City, Country, Hotel } from "../types";
 const codeSandboxHost = getCodeSandboxHost(3001);
 const API_URL = codeSandboxHost ? `https://${codeSandboxHost}` : 'http://localhost:3001';
 
-export const fetchAndFilterHotels = async (value: string, abortController?: AbortController) => {
+// region hotels
+export async function fetchAndFilterHotels(value: string, abortController?: AbortController) {
 	try {
 		const { data: hotels }: { data: Hotel[] } = await Axios.get(`${API_URL}/hotels`, {
 			signal: abortController?.signal,
@@ -23,7 +24,19 @@ export const fetchAndFilterHotels = async (value: string, abortController?: Abor
 	}
 }
 
-export const fetchAndFilterCities = async (value: string, abortController?: AbortController) => {
+export async function fetchHotelById(id: string) {
+	try {
+		const { data: hotel }: { data: Hotel } = await Axios.get(`${API_URL}/hotels/${id}`);
+		return hotel;
+	} catch (error) {
+		console.log(`Error fetching hotel with ID: ${id}`, error);
+		throw error;
+	}
+}
+// endregion hotels
+
+// region cities
+export async function fetchAndFilterCities(value: string, abortController?: AbortController) {
 	try {
 		const { data: cities }: { data: City[] } = await Axios.get(`${API_URL}/cities`, {
 			signal: abortController?.signal,
@@ -38,7 +51,19 @@ export const fetchAndFilterCities = async (value: string, abortController?: Abor
 	}
 }
 
-export const fetchAndFilterCountries = async (value: string, abortController?: AbortController) => {
+export async function fetchCityById(id: string) {
+	try {
+		const { data: city }: { data: City } = await Axios.get(`${API_URL}/cities/${id}`);
+		return city;
+	} catch (error) {
+		console.log(`Error fetching city with ID: ${id}`, error);
+		throw error;
+	}
+}
+// endregion cities
+
+// region countries
+export async function fetchAndFilterCountries(value: string, abortController?: AbortController) {
 	try {
 		const { data: countries }: { data: Country[] } = await Axios.get(`${API_URL}/countries`, {
 			signal: abortController?.signal,
@@ -53,3 +78,14 @@ export const fetchAndFilterCountries = async (value: string, abortController?: A
 		throw error;
 	}
 }
+
+export async function fetchCountryById(id: string) {
+	try {
+		const { data: country }: { data: Country } = await Axios.get(`${API_URL}/countries/${id}`);
+		return country;
+	} catch (error) {
+		console.log(`Error fetching country with ID: ${id}`, error);
+		throw error;
+	}
+}
+// endregion countries
