@@ -17,6 +17,12 @@ function App() {
     setSearchTerm(value);
   }
 
+  const renderClearButton = () => (
+    <span className="left-pan">
+      <i className="fa fa-close" onClick={handleClearInput}></i>
+    </span>
+  )
+
   const handleClearInput = () => {
     setSearchTerm('');
     resetSearchResults();
@@ -100,11 +106,7 @@ function App() {
                   value={searchTerm}
                   onChange={handleInputChange}
                 />
-                {showClearBtn && (
-                  <span className="left-pan">
-                    <i className="fa fa-close" onClick={handleClearInput}></i>
-                  </span>
-                )}
+                {showClearBtn && renderClearButton()}
               </div>
               {errorMessage ? renderErrorMessage() : renderSearchResults()}
             </div>
