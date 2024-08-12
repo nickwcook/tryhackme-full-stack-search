@@ -1,10 +1,6 @@
 import { type ChangeEvent } from 'react';
 import { useAccommodationSearch } from "./hooks/search.hooks";
 
-// TODO: Add:
-//   AbortController,
-//   Min char length + input placeholder
-
 function App() {
   const {
     searchTerm,
