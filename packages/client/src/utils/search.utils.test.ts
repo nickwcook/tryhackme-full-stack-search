@@ -57,4 +57,40 @@ describe("search utils", () => {
       });
     });
   });
+
+  describe("fetchAndFilterCountries", () => {
+    it("returns an array of countries where name or ISO code include passed search term string", () => {
+      const testCases = [
+        {
+          searchTerm: "b",
+          numResults: 2,
+        },
+        {
+          searchTerm: "bg",
+          numResults: 1,
+        },
+        {
+          searchTerm: "c",
+          numResults: 1,
+        },
+        {
+          searchTerm: "cl",
+          numResults: 1,
+        },
+        {
+          searchTerm: "e",
+          numResults: 2,
+        },
+        {
+          searchTerm: "l",
+          numResults: 3,
+        },
+      ];
+
+      testCases.forEach(async ({ searchTerm, numResults }) => {
+        const result = await searchUtils.fetchAndFilterCountries(searchTerm);
+        expect(result.length).toEqual(numResults);
+      });
+    });
+  });
 });
