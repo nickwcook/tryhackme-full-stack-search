@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeAll, beforeEach, vi } from "vitest";
+import { describe, it, test, expect, beforeAll, beforeEach, vi } from "vitest";
 import { render, screen, act, waitFor } from "@testing-library/react";
 import userEvent, { UserEvent } from "@testing-library/user-event";
 import App from "app.tsx";
@@ -97,5 +97,40 @@ describe("App component", () => {
       expect(clearButton).not.toBeInTheDocument();
       expect(input.value).toBe("");
     });
+  });
+
+  describe("search results", () => {
+    const cases = [
+      // searchTerm, numHotels, numCountries, numCities
+      ["spain", 2, 0, 0],
+      ["dub", 1, 0, 0],
+      ["b", 2, 2, 2],
+      ["res", 1, 0, 0],
+      ["uck", 0, 0, 1],
+    ];
+
+    test.each(cases)(
+      `search term %s returns %i hotels, %i countries, %i cities`,
+      async (searchTerm, numHotels, numCountries, numCities) => {
+        const user = userEvent.setup();
+        await act(async () => render(<App />));
+        const input = screen.getByRole("textbox");
+        await user.type(input, searchTerm as string);
+        await waitFor(
+          () => {
+            expect(
+              screen.getByText(`Hotels (${numHotels})`),
+            ).toBeInTheDocument();
+            expect(
+              screen.getByText(`Countries (${numCountries})`),
+            ).toBeInTheDocument();
+            expect(
+              screen.getByText(`Cities (${numCities})`),
+            ).toBeInTheDocument();
+          },
+          { timeout: 501 },
+        );
+      },
+    );
   });
 });
