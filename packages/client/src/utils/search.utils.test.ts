@@ -29,4 +29,32 @@ describe("search utils", () => {
       });
     });
   });
+
+  describe("fetchAndFilterCities", () => {
+    it("returns an array of cities where name includes passed search term string", () => {
+      const testCases = [
+        {
+          searchTerm: "la",
+          numResults: 2,
+        },
+        {
+          searchTerm: "malaga",
+          numResults: 1,
+        },
+        {
+          searchTerm: "auc",
+          numResults: 1,
+        },
+        {
+          searchTerm: "b",
+          numResults: 2,
+        },
+      ];
+
+      testCases.forEach(async ({ searchTerm, numResults }) => {
+        const result = await searchUtils.fetchAndFilterCities(searchTerm);
+        expect(result.length).toEqual(numResults);
+      });
+    });
+  });
 });
