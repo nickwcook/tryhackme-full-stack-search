@@ -2,6 +2,7 @@
 
 ## Contents
 * [Additional Technologies](#additional-technologies)
+* [Instructions](#instructions)
 
 ## Additional Technologies/Libraries
 * Axios
@@ -10,3 +11,15 @@
 * Vite TSConfig Paths
 * MSW (Mock Service Worker)
 * Prettier
+
+## Instructions
+All commands remain as provided from the original `package.json`:
+
+### Running the client
+`npm run start:client`
+
+### Running the API
+`npm run start:api`
+
+### Running unit tests
+`npm test`
