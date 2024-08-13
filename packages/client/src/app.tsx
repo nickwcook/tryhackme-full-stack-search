@@ -56,7 +56,7 @@ function App() {
 
   const renderHotelResults = () => (
     <>
-      <h2>Hotels</h2>
+      <h2>Hotels ({hotels.length})</h2>
       {hotels.length ? (
         hotels.map((hotel, index) => (
           <li key={index}>
@@ -75,7 +75,7 @@ function App() {
 
   const renderCountryResults = () => (
     <>
-      <h2>Countries</h2>
+      <h2>Countries ({countries.length})</h2>
       {countries.length ? (
         countries.map((country, index) => {
           const { country: countryName } = country; // Note observation re. field 'country'
@@ -97,7 +97,7 @@ function App() {
 
   const renderCityResults = () => (
     <>
-      <h2>Cities</h2>
+      <h2>Cities ({cities.length})</h2>
       {cities.length ? (
         cities.map((city, index) => {
           const { name: cityName } = city; // Note observation re. field 'country'
