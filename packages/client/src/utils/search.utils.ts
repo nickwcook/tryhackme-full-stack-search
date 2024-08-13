@@ -39,7 +39,6 @@ export async function fetchHotelById(id: string) {
     );
     return hotel;
   } catch (error) {
-    console.log(`Error fetching hotel with ID: ${id}`, error);
     throw error;
   }
 }
@@ -61,7 +60,6 @@ export async function fetchAndFilterCities(
       name.toLowerCase().includes(value.toLowerCase()),
     );
   } catch (error) {
-    console.log("Error fetching cities data:", error);
     throw error;
   }
 }
@@ -73,7 +71,6 @@ export async function fetchCityById(id: string) {
     );
     return city;
   } catch (error) {
-    console.log(`Error fetching city with ID: ${id}`, error);
     throw error;
   }
 }
@@ -97,7 +94,6 @@ export async function fetchAndFilterCountries(
         countryisocode.toLowerCase().includes(value.toLowerCase()),
     );
   } catch (error) {
-    console.log("Error fetching countries data:", error);
     throw error;
   }
 }
@@ -109,7 +105,6 @@ export async function fetchCountryById(id: string) {
     );
     return country;
   } catch (error) {
-    console.log(`Error fetching country with ID: ${id}`, error);
     throw error;
   }
 }
