@@ -5,6 +5,7 @@
 - [Instructions](#instructions)
 - [Progress](#progress)
 - [Performance Enhancements](#performance-enhancements)
+- [Assumptions and Observations](#assumptions-and-observations)
 
 ## Additional Technologies/Libraries
 - Axios
@@ -52,3 +53,16 @@ With acceptance criteria placing an emphasis on *performant* search, I've implem
   - Select subset of fields from fetched documents at search,
   - Select *all* fields at Hotel/Country/City pages
 
+
+## Assumptions and Observations
+- **Assumption:** I've made very few changes to *styling* across the application...
+  - Whilst it wasn't stated in the acceptance criteria, I've specifically omitted since there aren't any requirements for exact UI designs and therefore content to base styling off
+  - I've only made a couple of small-scale additions via Bootstrap utility classes
+- **Assumption:** We would ideally like search term to show results for **country ISO code**...
+  - For example: Search term _"BE"_ will show search result for country _"Belgium"_
+- **Observation:** Country objects contain a string-type field called *country*...
+  - Ideally, I'd have this field renamed on its model so as not to cause confusion within a codebase that deconstructs the field/property from instances of the object itself
+  - For example: Where we might therefore have to reference `country.country` or `const { country } = country`
+- **Observation:** There are currently no _ideal_ fields to use as SEO-minded URL slugs for the hotels...
+  - Some hotel names contain commas, so can't directly be transformed to lowercase, kebab-cased URL slugs for the navigated page that displays their name on clicking an item in search results
+  - In a real-world project, it'd be ideal to use a more SEO-friendly kebab-case URL slug in place of `hotels/:id`
