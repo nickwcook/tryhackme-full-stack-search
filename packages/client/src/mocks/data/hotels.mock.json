@@ -1,0 +1,41 @@
+[
+  {
+    "_id": "66ba03edce2da5a35781f19a",
+    "chain_name": "Samed Resorts Group",
+    "hotel_name": "Sai Kaew Beach Resort",
+    "addressline1": "8/1 Moo 4 Tumbon Phe Muang",
+    "addressline2": "",
+    "zipcode": "21160",
+    "city": "Koh Samet",
+    "state": "Rayong",
+    "country": "Thailand",
+    "countryisocode": "TH",
+    "star_rating": 4
+  },
+  {
+    "_id": "66ba03edce2da5a35781f19b",
+    "chain_name": "No chain",
+    "hotel_name": "Marine Hotel",
+    "addressline1": "Sutton Cross",
+    "addressline2": "",
+    "zipcode": "D13",
+    "city": "Dublin",
+    "state": "",
+    "country": "Ireland",
+    "countryisocode": "IE",
+    "star_rating": 3
+  },
+  {
+    "_id": "66ba03edce2da5a35781f19c",
+    "chain_name": "Melia Hotels International",
+    "hotel_name": "TRYP Malaga Alameda Hotel",
+    "addressline1": "Avenida de la Aurora CC.Larios Centro S/N",
+    "addressline2": "",
+    "zipcode": "29002",
+    "city": "Malaga",
+    "state": "Andalusia",
+    "country": "Spain",
+    "countryisocode": "ES",
+    "star_rating": 4
+  }
+]
