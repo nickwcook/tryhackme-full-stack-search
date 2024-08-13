@@ -1,8 +1,8 @@
-import {useCallback, useEffect, useState} from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { isAxiosError } from "axios";
 import { Hotel } from "../../types";
-import { fetchHotelById } from "../../utils/search.utils.ts";
+import { fetchHotelById } from "../../utils/search.utils";
 
 const HotelPage = () => {
 	// const hotelData = (useLoaderData() as Hotel); Sample: Please see submission notes

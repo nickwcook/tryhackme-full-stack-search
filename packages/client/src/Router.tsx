@@ -22,7 +22,7 @@ const router = createBrowserRouter([
 		element: <CountryPage />
 	},
 	{
-		path: "/city/:id",
+		path: "/cities/:id",
 		element: <CityPage />
 	}
 ]);
