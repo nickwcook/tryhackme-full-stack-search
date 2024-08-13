@@ -35,7 +35,11 @@ function App() {
       />
       {showClearBtn && (
         <span className="left-pan">
-          <i className="fa fa-close" onClick={handleClearInput}></i>
+          <i
+            title="Clear search"
+            className="fa fa-close"
+            onClick={handleClearInput}
+          ></i>
         </span>
       )}
     </>
