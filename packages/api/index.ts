@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from 'cors';
-import { MongoClient, Db, ObjectId } from "mongodb";
+import { MongoClient, Db, ObjectId, FindOptions } from "mongodb";
 
 // region config
 dotenv.config();
@@ -38,7 +38,16 @@ MongoClient.connect(DATABASE_URL)
 app.get('/hotels', async (req, res) => {
   try {
     const collection = db.collection('hotels');
-    res.send(await collection.find().toArray())
+    const findOptions: FindOptions = {
+      projection: {
+        "_id": 1,
+        "hotel_name": 1,
+        "chain_name": 1,
+        "city": 1,
+        "country": 1,
+      }
+    };
+    res.send(await collection.find({}, findOptions).toArray())
   } catch(error) {
     console.log('Error fetching hotels:', error);
   }
@@ -59,7 +68,13 @@ app.get('/hotels/:id', async (req, res) => {
 app.get('/cities', async (req, res) => {
   try {
     const collection = db.collection('cities');
-    res.send(await collection.find().toArray())
+    const findOptions: FindOptions = {
+      projection: {
+        "_id": 1,
+        "name": 1
+      }
+    };
+    res.send(await collection.find({}, findOptions).toArray())
   } catch(error) {
     console.log('Error fetching cities:', error);
   }
@@ -80,7 +95,14 @@ app.get('/cities/:id', async (req, res) => {
 app.get('/countries', async (req, res) => {
   try {
     const collection = db.collection('countries');
-    res.send(await collection.find().toArray())
+    const findOptions: FindOptions = {
+      projection: {
+        "_id": 1,
+        "country": 1,
+        "countryisocode": 1,
+      }
+    };
+    res.send(await collection.find({}, findOptions).toArray())
   } catch(error) {
     console.log('Error fetching countries:', error);
   }
