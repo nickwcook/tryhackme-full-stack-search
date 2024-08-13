@@ -1,41 +1,30 @@
 [
   {
-    "_id": "66ba03edce2da5a35781f19a",
+    "_id": "66bb3baffca3daa7e759d168",
     "chain_name": "Samed Resorts Group",
     "hotel_name": "Sai Kaew Beach Resort",
-    "addressline1": "8/1 Moo 4 Tumbon Phe Muang",
-    "addressline2": "",
-    "zipcode": "21160",
     "city": "Koh Samet",
-    "state": "Rayong",
-    "country": "Thailand",
-    "countryisocode": "TH",
-    "star_rating": 4
+    "country": "Thailand"
   },
   {
-    "_id": "66ba03edce2da5a35781f19b",
+    "_id": "66bb3baffca3daa7e759d169",
     "chain_name": "No chain",
     "hotel_name": "Marine Hotel",
-    "addressline1": "Sutton Cross",
-    "addressline2": "",
-    "zipcode": "D13",
     "city": "Dublin",
-    "state": "",
-    "country": "Ireland",
-    "countryisocode": "IE",
-    "star_rating": 3
+    "country": "Ireland"
   },
   {
-    "_id": "66ba03edce2da5a35781f19c",
+    "_id": "66bb3baffca3daa7e759d16a",
     "chain_name": "Melia Hotels International",
     "hotel_name": "TRYP Malaga Alameda Hotel",
-    "addressline1": "Avenida de la Aurora CC.Larios Centro S/N",
-    "addressline2": "",
-    "zipcode": "29002",
     "city": "Malaga",
-    "state": "Andalusia",
-    "country": "Spain",
-    "countryisocode": "ES",
-    "star_rating": 4
+    "country": "Spain"
+  },
+  {
+    "_id": "66bb3baffca3daa7e759d172",
+    "chain_name": "No chain",
+    "hotel_name": "Hotel Conde Luna",
+    "city": "Leon",
+    "country": "Spain"
   }
 ]
