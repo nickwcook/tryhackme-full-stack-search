@@ -1,11 +1,12 @@
 # Nick Cook - TryHackMe Full-Stack Search
 
 ## Contents
-- [Additional Technologies](#additional-technologies)
+- [Additional Technologies](#additional-technologieslibraries)
 - [Instructions](#instructions)
 - [Progress](#progress)
 - [Performance Enhancements](#performance-enhancements)
 - [Assumptions and Observations](#assumptions-and-observations)
+- [Additional Tasks/What I'd do with more time](#additional-taskswhat-id-do-with-more-time)
 
 ## Additional Technologies/Libraries
 - Axios
@@ -66,3 +67,14 @@ With acceptance criteria placing an emphasis on *performant* search, I've implem
 - **Observation:** There are currently no _ideal_ fields to use as SEO-minded URL slugs for the hotels...
   - Some hotel names contain commas, so can't directly be transformed to lowercase, kebab-cased URL slugs for the navigated page that displays their name on clicking an item in search results
   - In a real-world project, it'd be ideal to use a more SEO-friendly kebab-case URL slug in place of `hotels/:id`
+
+## Additional Tasks/What I'd do with more time
+### Add an error-handler class/library:
+- To add logging operations and single location for deconstruction of error _messages_ from thrown errors (where currently detecting regular errors versus Axios errors).
+
+### Add 404 page/Error Boundary:
+- To manage scenario of navigation to hotel/country/city pages missing ID or referencing an invalid ID slug.
+
+### Investigate shared Hotel/Country/City page component:
+- Currently, these pages are almost exactly the same, with exception of their URL's and object referencing,
+- There may be a smarter way to prevent repetition of much of their currently-identical fetching logic (which creates multiple touch points should some of this change and impact all of them).
