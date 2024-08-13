@@ -23,6 +23,12 @@ describe("App component", () => {
       expect(countriesText).not.toBeInTheDocument();
       expect(citiesText).not.toBeInTheDocument();
     });
+
+    it("does not show the clear button", async () => {
+      await act(async () => render(<App />));
+      const clearButton = screen.queryByTitle("Clear search");
+      expect(clearButton).not.toBeInTheDocument();
+    });
   });
 
   describe("user enters multi-character search term", () => {
@@ -57,6 +63,15 @@ describe("App component", () => {
         },
         { timeout: 501 },
       );
+    });
+
+    it("shows the clear button", async () => {
+      const user = userEvent.setup();
+      await act(async () => render(<App />));
+      const input = screen.getByRole("textbox");
+      await user.type(input, "a");
+      const clearButton = screen.getByTitle("Clear search");
+      expect(clearButton).toBeInTheDocument();
     });
   });
 });
