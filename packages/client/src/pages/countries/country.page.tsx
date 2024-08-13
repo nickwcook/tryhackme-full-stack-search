@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { isAxiosError } from "axios";
-import { Country } from "../../types";
-import { fetchCountryById } from "../../utils/search.utils";
+import { Country } from "types";
+import { fetchCountryById } from "utils/search.utils";
 
 const CountryPage = () => {
 	// const countryData = (useLoaderData() as Country); Sample: Please see submission notes

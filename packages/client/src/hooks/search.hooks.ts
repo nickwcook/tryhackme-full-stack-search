@@ -1,12 +1,12 @@
 import { useCallback, useMemo, useEffect, useState } from "react";
 import { isAxiosError } from "axios";
 import debounce from "lodash.debounce";
-import { City, Country, Hotel } from "../types";
+import { City, Country, Hotel } from "types";
 import {
 	fetchAndFilterCities,
 	fetchAndFilterCountries,
 	fetchAndFilterHotels
-} from "../utils/search.utils";
+} from "utils/search.utils";
 
 export const useAccommodationSearch = () => {
 	const [searchTerm, setSearchTerm] = useState<string>('');

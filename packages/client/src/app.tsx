@@ -1,5 +1,5 @@
 import { type ChangeEvent } from 'react';
-import { useAccommodationSearch } from "./hooks/search.hooks";
+import { useAccommodationSearch } from "hooks/search.hooks";
 
 function App() {
   const {

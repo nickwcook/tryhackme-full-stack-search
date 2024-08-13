@@ -1,6 +1,6 @@
 import { getCodeSandboxHost } from "@codesandbox/utils";
 import Axios from "axios";
-import { City, Country, Hotel } from "../types";
+import { City, Country, Hotel } from "types";
 
 const codeSandboxHost = getCodeSandboxHost(3001);
 const API_URL = codeSandboxHost ? `https://${codeSandboxHost}` : 'http://localhost:3001';
