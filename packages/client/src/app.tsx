@@ -68,7 +68,7 @@ function App() {
           </li>
         ))
       ) : (
-        <p>No hotels matched</p>
+        <p>No hotels found</p>
       )}
     </>
   );
@@ -90,7 +90,7 @@ function App() {
           );
         })
       ) : (
-        <p>No countries matched</p>
+        <p>No countries found</p>
       )}
     </>
   );
@@ -112,7 +112,7 @@ function App() {
           );
         })
       ) : (
-        <p>No cities matched</p>
+        <p>No cities found</p>
       )}
     </>
   );

@@ -127,6 +127,15 @@ describe("App component", () => {
             expect(
               screen.getByText(`Cities (${numCities})`),
             ).toBeInTheDocument();
+
+            if (numHotels == 0)
+              expect(screen.getByText("No hotels found")).toBeInTheDocument();
+            if (numCountries == 0)
+              expect(
+                screen.getByText("No countries found"),
+              ).toBeInTheDocument();
+            if (numCities == 0)
+              expect(screen.getByText("No cities found")).toBeInTheDocument();
           },
           { timeout: 501 },
         );
