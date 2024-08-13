@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./app.tsx";
-import HotelPage from "./pages/hotels/hotel.page.tsx";
-import CountryPage from "./pages/countries/country.page.tsx";
-import CityPage from "./pages/cities/city.page.tsx";
+import HotelPage from "pages/hotels/Hotel.page.tsx";
+import CountryPage from "pages/countries/Country.page.tsx";
+import CityPage from "pages/cities/City.page.tsx";
 
 const router = createBrowserRouter([
   {
