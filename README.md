@@ -86,6 +86,8 @@ When clicking on one of the `Hotels`, `Cities` or `Countries` links, the applica
 
 _When all the behaviour is implemented, feel free to add some observations or conclusions you like to share in the section_
 
+**(*SUBMISSION.md* file added at project root)**
+
 ### Database structure
 
 #### Hotels Collection
